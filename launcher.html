@@ -1,0 +1,13 @@
+<!-- launcher.html on https://<your-user>.github.io/checkout-launcher/ -->
+<!DOCTYPE html>
+<html><body>
+<p>正在打开选座页…</p>
+<script>
+const params = new URLSearchParams(location.search);
+chrome.runtime.sendMessage(
+  "YOUR_EXTENSION_ID_HERE",
+  { s: params.get("s"), u: params.get("u") },
+  (resp) => { if (!resp?.ok) document.body.innerText = "扩展未安装或失败"; }
+);
+</script>
+</body></html>
