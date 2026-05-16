@@ -1,3 +1,11 @@
+
+
+<!-- launcher.html on https://<your-user>.github.io/checkout-launcher/ -->
+<!DOCTYPE html>
+<html><body>
+<p>正在打开选座页…</p>
+<script>
+const params = new URLSearchParams(location.search);
 chrome.runtime.onMessageExternal.addListener(
   (msg, sender, sendResponse) => {
 
@@ -11,3 +19,5 @@ chrome.runtime.onMessageExternal.addListener(
     sendResponse({ ok: true });
   }
 );
+</script>
+</body></html>
