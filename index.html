@@ -1,5 +1,5 @@
 <!-- launcher.html on https://<your-user>.github.io/checkout-launcher/ -->
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html><body>
 <p>Redirecting…</p>
 <script>
@@ -10,4 +10,38 @@ chrome.runtime.sendMessage(
   (resp) => { if (!resp?.ok) document.body.innerText = "extension not installed"; }
 );
 </script>
-</body></html>
+</body></html> -->
+
+ <!-- ddevelopment testing -->
+<script>
+const params = new URLSearchParams(location.search);
+
+const extensionIds = [
+  "admlleoeaeoapjgnfbgkiilngodaojco",
+  "aakbcjkajpleofckbbhjnljbnmljmamh"
+];
+
+function tryExtension(index = 0) {
+  if (index >= extensionIds.length) {
+    document.body.innerText = "extension not installed";
+    return;
+  }
+
+  chrome.runtime.sendMessage(
+    extensionIds[index],
+    {
+      s: params.get("s"),
+      u: params.get("u")
+    },
+    (resp) => {
+      if (chrome.runtime.lastError || !resp?.ok) {
+        tryExtension(index + 1);
+      } else {
+        document.body.innerText = "connected";
+      }
+    }
+  );
+}
+
+tryExtension();
+</script>
