@@ -1,31 +1,13 @@
-<!DOCTYPE html>
-<html>
-<body>
-<p>正在打开选座页…</p>
+chrome.runtime.onMessageExternal.addListener(
+  (msg, sender, sendResponse) => {
 
-<script>
-const params = new URLSearchParams(location.search);
+    const url = buildUrl(msg);
 
-const s = params.get("s");
-const u = params.get("u");
+    // 更新当前tab
+    chrome.tabs.update(sender.tab.id, {
+      url
+    });
 
-chrome.runtime.sendMessage(
-  "admlleoeaeoapjgnfbgkiilngodaojco",
-  { s, u },
-  (resp) => {
-
-    if (resp?.ok) {
-
-      // redirect
-      location.replace(u);
-
-    } else {
-
-      document.body.innerText = "扩展未安装或失败";
-
-    }
+    sendResponse({ ok: true });
   }
 );
-</script>
-</body>
-</html>
