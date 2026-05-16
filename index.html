@@ -1,13 +1,31 @@
-<!-- launcher.html on https://<your-user>.github.io/checkout-launcher/ -->
 <!DOCTYPE html>
-<html><body>
+<html>
+<body>
 <p>正在打开选座页…</p>
+
 <script>
 const params = new URLSearchParams(location.search);
+
+const s = params.get("s");
+const u = params.get("u");
+
 chrome.runtime.sendMessage(
   "admlleoeaeoapjgnfbgkiilngodaojco",
-  { s: params.get("s"), u: params.get("u") },
-  (resp) => { if (!resp?.ok) document.body.innerText = "扩展未安装或失败"; }
+  { s, u },
+  (resp) => {
+
+    if (resp?.ok) {
+
+      // redirect
+      location.replace(u);
+
+    } else {
+
+      document.body.innerText = "扩展未安装或失败";
+
+    }
+  }
 );
 </script>
-</body></html>
+</body>
+</html>
